@@ -1,0 +1,50 @@
+{
+    "name": "df_load_Agency",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "DelimitedText_AgencyMaster",
+                        "type": "DatasetReference"
+                    },
+                    "name": "AgencyCSV"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "AzureSqlTable_AgencyMaster",
+                        "type": "DatasetReference"
+                    },
+                    "name": "AgencyTable"
+                }
+            ],
+            "transformations": [],
+            "scriptLines": [
+                "source(output(",
+                "          AgencyID as string,",
+                "          AgencyName as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> AgencyCSV",
+                "AgencyCSV sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     input(",
+                "          AgencyID as string,",
+                "          AgencyName as string",
+                "     ),",
+                "     deletable:false,",
+                "     insertable:true,",
+                "     updateable:false,",
+                "     upsertable:false,",
+                "     format: 'table',",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     errorHandlingOption: 'stopOnFirstError') ~> AgencyTable"
+            ]
+        }
+    }
+}

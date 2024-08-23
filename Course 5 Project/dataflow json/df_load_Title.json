@@ -1,0 +1,50 @@
+{
+    "name": "df_load_Title",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "DelimitedText_TitleMaster",
+                        "type": "DatasetReference"
+                    },
+                    "name": "TitleCSV"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "AzureSqlTable_TitleMaster",
+                        "type": "DatasetReference"
+                    },
+                    "name": "TitleTable"
+                }
+            ],
+            "transformations": [],
+            "scriptLines": [
+                "source(output(",
+                "          TitleCode as string,",
+                "          TitleDescription as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> TitleCSV",
+                "TitleCSV sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     input(",
+                "          TitleCode as string,",
+                "          TitleDescription as string",
+                "     ),",
+                "     deletable:false,",
+                "     insertable:true,",
+                "     updateable:false,",
+                "     upsertable:false,",
+                "     format: 'table',",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     errorHandlingOption: 'stopOnFirstError') ~> TitleTable"
+            ]
+        }
+    }
+}
