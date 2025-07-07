@@ -7,6 +7,7 @@ You have been hired as a Data Engineer to create high-quality data pipelines tha
 
 The source data resides in Azure Data Lake and needs to be processed in a NYC data warehouse. The source datasets consist of CSV files with Employee master data and monthly payroll data entered by various City agencies.
 ![](https://video.udacity-data.com/topher/2024/January/65b989ea_nyc-payroll-db-schema/nyc-payroll-db-schema.jpeg)
+
 In the following pages, we will go through the project instructions and by the end you will have built a Data Integration Pipelines on the NYC Payroll Data. We will be using Azure Data Factory to create Data views in Azure SQL DB from the source data files in DataLake Gen2. Then we built our dataflows and pipelines to create payroll aggregated data that will be exported to a target directory in DataLake Gen2 storage over which Synapse Analytics external table is built. At a high level your pipeline will look like below
 
 ![](https://video.udacity-data.com/topher/2024/January/65b98a0f_data-integration-pipelines-overview/data-integration-pipelines-overview.jpeg)
